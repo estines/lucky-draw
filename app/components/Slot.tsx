@@ -8,7 +8,7 @@ const NUM_SLOTS = 3 // Number of slots to display
 const SPIN_DURATION = 3000 // Animation duration in milliseconds
 const EXTRA_ITEMS = 5 // Add extra items to ensure smooth loop
 
-interface CsvRow {
+export interface CsvRow {
     // Define the expected structure of your CSV data here
     // For example:
     name: string

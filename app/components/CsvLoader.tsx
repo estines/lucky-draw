@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import Papa from 'papaparse'
-
+import { CsvRow } from './Slot'
 interface CsvUploaderProps {
-    onFileData: (data: any[]) => void // Adjust the type as needed based on your CSV structure
+    onFileData: (data: CsvRow[]) => void // Adjust the type as needed based on your CSV structure
 }
 
 const CsvUploader = ({ onFileData }: CsvUploaderProps) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedFile(event?.target?.files[0])
+        const result = event?.target?.files
+        setSelectedFile(result?.[0] as File)
     }
 
     const handleFileUpload = () => {
@@ -19,7 +20,7 @@ const CsvUploader = ({ onFileData }: CsvUploaderProps) => {
                 dynamicTyping: true, // Attempts to convert values to their appropriate types
                 skipEmptyLines: true,
                 complete: (results) => {
-                    onFileData(results.data) // Pass the parsed data back to the parent component
+                    onFileData(results.data as CsvRow[]) // Pass the parsed data back to the parent component
                 },
                 error: (error) => {
                     console.error('Error parsing CSV:', error)
