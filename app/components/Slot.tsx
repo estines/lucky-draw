@@ -312,9 +312,11 @@ export default function SlotComponent() {
                                                 ? 'bg-[rgba(0,0,0,.4)]'
                                                 : '' // Add background to even items
                                         }`}
-                                        ref={(el: HTMLParagraphElement) =>
-                                            (slotRefs.current[index] = el)
-                                        }
+                                        ref={(el) => {
+                                            if (el) {
+                                                slotRefs.current[index] = el
+                                            }
+                                        }}
                                     >
                                         {name}
                                     </p>
