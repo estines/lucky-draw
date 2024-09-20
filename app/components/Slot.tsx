@@ -110,6 +110,7 @@ export default function SlotComponent() {
         setCsvData([])
         setWinnerList([])
         setCustomerList(csvData.map((d) => d.name))
+        document.getElementById('drawer-close-button')?.click()
     }
 
     // lucky draw handler
@@ -253,25 +254,34 @@ export default function SlotComponent() {
                 className='fixed z-20 top-0 left-0 w-screen h-screen bg-gray-800 text-white transform -translate-x-full transition-transform duration-300 ease-in-out'
                 id='drawer'
             >
-                <div className='flex flex-col w-[50vw] p-3'>
-                    <h3>Import Customer List</h3>
-                    <CsvUploader onFileData={handleFileData} />
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div className='flex w-screen justify-center'>
+                    <div className='flex flex-col w-[70vw] p-3'>
+                        <h1>Import Customer List</h1>
+                        <div id='upload-csv' className='flex my-3'>
+                            <div className='pr-5'>
+                                <p>File: </p>
+                            </div>
+                            <CsvUploader onFileData={handleFileData} />
+                        </div>
+                        <ul className='h-[70vh] overflow-y-auto'>
                             {csvData.length > 0 &&
                                 csvData.map((row, index) => (
-                                    <tr key={`csv-${row.name}-${index}`}>
+                                    <li key={`csv-${row.name}-${index}`}>
                                         {row.name}
-                                    </tr>
+                                    </li>
                                 ))}
-                        </tbody>
-                    </table>
-                    <button onClick={onConfirmUseCSV}>Confirm</button>
+                        </ul>
+                        <div className='flex w-100 justify-center'>
+                            <button
+                                type='button'
+                                className='slot-machine__button w-[75%] bg-[#5C2E7E] text-white uppercase font-bold py-2 px-4 rounded-[5px] hover:opacity-70'
+                                // className='fixed z-100 bottom-6 left-6 hover:bg-gray-700 focus:outline-none rounded-full shadow-md'
+                                onClick={onConfirmUseCSV}
+                            >
+                                Add
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <button
